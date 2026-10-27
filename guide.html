@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f5ede8" />
+    <meta
+      name="description"
+      content="ASTER 的激素单位换算公式、分子量、催乳素检测系数与方法学边界。"
+    />
+    <link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="assets/icon-192.png" />
+    <link rel="stylesheet" href="assets/styles.css" />
+    <script src="assets/lucide.min.js" defer></script>
+    <script src="assets/guide.js" defer></script>
+    <title>换算说明 · ASTER</title>
+  </head>
+  <body class="guide-document">
+    <div class="site-shell">
+      <header class="site-header">
+        <a class="brand" href="./" aria-label="返回 ASTER">
+          <span class="brand-mark" aria-hidden="true">
+            <span>A</span>
+            <i></i>
+          </span>
+          <span class="brand-copy">
+            <strong>ASTER</strong>
+            <small>HRT UNIT WORKBENCH</small>
+          </span>
+        </a>
+        <a class="text-button back-link" href="./">
+          <i data-lucide="arrow-left"></i>
+          <span>返回换算器</span>
+        </a>
+      </header>
+
+      <main class="guide-main">
+        <section class="guide-hero">
+          <p class="eyebrow">MODEL &amp; BOUNDARIES</p>
+          <h1>数字可以换单位，<br /><em>判断不能脱离语境。</em></h1>
+          <p>
+            ASTER 的换算只改变表示方式，不改变原始检测样本、检测平台、采样时间或临床含义。
+          </p>
+        </section>
+
+        <div class="guide-layout">
+          <aside class="guide-index" aria-label="本页目录">
+            <p>ON THIS PAGE</p>
+            <a href="#steroids">01 / 类固醇激素</a>
+            <a href="#prolactin">02 / 催乳素</a>
+            <a href="#gonadotropins">03 / LH 与 FSH</a>
+            <a href="#outside-scope">04 / 不支持的换算</a>
+            <a href="#female-ranges">05 / 女性参考带</a>
+            <a href="#hrt-range">06 / HRT 监测带</a>
+          </aside>
+
+          <article class="guide-body">
+            <section id="steroids">
+              <span class="guide-number">01</span>
+              <div>
+                <h2>类固醇激素</h2>
+                <p>
+                  质量浓度与摩尔浓度使用分析物自身的摩尔质量换算。不同激素即使都属于类固醇，也不能共享一个系数。
+                </p>
+                <div class="equation-block">
+                  <code>nmol/L = 质量浓度(ng/L) ÷ 摩尔质量(g/mol)</code>
+                  <code>pmol/L = nmol/L × 1000</code>
+                </div>
+                <div class="guide-table-wrap">
+                  <table class="guide-table">
+                    <thead>
+                      <tr>
+                        <th>分析物</th>
+                        <th>分子式</th>
+                        <th>摩尔质量</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr><td>雌二醇 E2</td><td>C18H24O2</td><td>272.38 g/mol</td></tr>
+                      <tr><td>雌酮 E1</td><td>C18H22O2</td><td>270.37 g/mol</td></tr>
+                      <tr><td>雌三醇 E3</td><td>C18H24O3</td><td>288.38 g/mol</td></tr>
+                      <tr><td>炔雌醇 EE2</td><td>C20H24O2</td><td>296.40 g/mol</td></tr>
+                      <tr><td>睾酮 T</td><td>C19H28O2</td><td>288.42 g/mol</td></tr>
+                      <tr><td>双氢睾酮 DHT</td><td>C19H30O2</td><td>290.44 g/mol</td></tr>
+                      <tr><td>孕酮 P4</td><td>C21H30O2</td><td>314.46 g/mol</td></tr>
+                      <tr><td>雄烯二酮 A4</td><td>C19H26O2</td><td>286.41 g/mol</td></tr>
+                      <tr><td>DHEA-S</td><td>C19H28O5S</td><td>368.49 g/mol</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+
+            <section id="prolactin">
+              <span class="guide-number">02</span>
+              <div>
+                <h2>催乳素</h2>
+                <p>
+                  催乳素是蛋白质激素，质量单位与 <code>mIU/L</code> 之间没有跨平台固定的精确系数。
+                </p>
+                <div class="guide-callout">
+                  <strong>默认近似：</strong>
+                  <code>1 ng/mL ≈ 21.2 mIU/L</code>
+                  <p>实际比值依检测平台、校准品与实验室说明而异，可在换算器中调整。</p>
+                </div>
+              </div>
+            </section>
+
+            <section id="gonadotropins">
+              <span class="guide-number">03</span>
+              <div>
+                <h2>LH、FSH 与 SHBG</h2>
+                <p>
+                  LH 与 FSH 以免疫测定国际单位报告。ASTER 只在 <code>mIU/mL</code>、<code>IU/L</code>、
+                  <code>mIU/L</code> 和 <code>IU/mL</code> 之间换算，不提供没有依据的质量单位互算。
+                </p>
+                <p>
+                  SHBG 通常以摩尔浓度报告；蛋白质糖基化和检测标准化差异使通用质量换算缺乏可靠性，因此仅提供摩尔单位。
+                </p>
+              </div>
+            </section>
+
+            <section id="outside-scope">
+              <span class="guide-number">04</span>
+              <div>
+                <h2>不支持的换算</h2>
+                <p>
+                  药物或制剂剂量与血清浓度不是同一种量纲。以下数值不能通过 ASTER 互换：
+                </p>
+                <ul class="guide-list">
+                  <li>雌二醇片 <code>mg</code> → 血清 <code>pg/mL</code></li>
+                  <li>注射剂 <code>mg</code> → 血清 <code>pmol/L</code></li>
+                  <li>凝胶浓度或涂抹面积 → 个体血清浓度</li>
+                  <li>贴片 <code>mcg/day</code> → 血清浓度</li>
+                  <li>化验结果 → 治疗目标或处方建议</li>
+                </ul>
+              </div>
+            </section>
+
+            <section id="female-ranges">
+              <span class="guide-number">05</span>
+              <div>
+                <h2>女性参考带</h2>
+                <p>
+                  “女性水平对照”使用成人女性常见公开实验室参考带的汇编示例，帮助定位数值属于所列区间的哪一端。它不是诊断标准，也不是 HRT 治疗目标。
+                </p>
+                <p>
+                  雌二醇、孕酮、LH 与 FSH 会随月经周期显著变化，因此同时展示卵泡期、围排卵期、黄体期和绝经后参考带。一个数值可能同时落入多个宽泛区间；应结合采样日期、周期、年龄与实际用药判断。
+                </p>
+                <div class="guide-callout">
+                  <strong>请优先使用化验单区间。</strong>
+                  <p>
+                    不同实验室的检测平台、校准品、单位和参考人群不同。即使单位已经正确换算，也不应把 ASTER 的示例区间直接替代实验室报告或临床解释。
+                  </p>
+                </div>
+                <ul class="guide-list">
+                  <li><strong>低于参考带：</strong>数值低于界面所列区间；不等同于疾病或需要调整用药。</li>
+                  <li><strong>位于参考带：</strong>数值处于某一示例区间内；不代表对所有周期或检测平台都相同。</li>
+                  <li><strong>高于参考带：</strong>数值高于界面所列区间；应结合检测时点、药物与实验室复核。</li>
+                  <li><strong>无通用参考带：</strong>炔雌醇为合成药物，雌三醇主要与妊娠评估相关，因此不提供内源女性区间。</li>
+                </ul>
+              </div>
+            </section>
+
+            <section id="hrt-range">
+              <span class="guide-number">06</span>
+              <div>
+                <h2>女性化 HRT 监测带</h2>
+                <p>
+                  ASTER 将雌二醇 <code>100–200 pg/mL</code>（约 <code>367–734 pmol/L</code>）标为常见公开指南与综述使用的监测范围。部分指南更强调雌二醇不超过
+                  <code>200 pg/mL</code>，具体目标仍需由临床方案与检测时点决定。
+                </p>
+                <p>
+                  对总睾酮，ASTER 使用 <code>&lt;50 ng/dL</code>（约 <code>&lt;1.73 nmol/L</code>）作为常见女性化 HRT 监测上限。不同地区、实验室和临床方案可能采用不同阈值。
+                </p>
+                <div class="guide-callout">
+                  <strong>监测带不是“女性化效果刻度”。</strong>
+                  <p>
+                    激素浓度处于常见范围，不能预测或保证乳房发育、脂肪分布、皮肤变化等具体结果；超过范围也不应自行停药、补药或改变剂量。
+                  </p>
+                </div>
+                <ul class="guide-list">
+                  <li>采血时间、给药途径与距上次用药的间隔会改变结果。</li>
+                  <li>应优先采用开药医生与检验实验室给出的个体目标和参考区间。</li>
+                  <li>出现胸痛、呼吸困难、单侧肢体肿痛、严重头痛或视力变化时，应及时联系医疗人员。</li>
+                </ul>
+                <p>
+                  主要资料来源：
+                  <a href="https://www.endocrine.org/clinical-practice-guidelines/gender-dysphoria-gender-incongruence" target="_blank" rel="noreferrer">Endocrine Society 2017 指南</a>、
+                  <a href="https://wpath.org/publications/soc8/" target="_blank" rel="noreferrer">WPATH Standards of Care 8</a>、
+                  <a href="https://doi.org/10.1089/lgbt.2024.0407" target="_blank" rel="noreferrer">2025 年雌二醇目标范围系统综述</a>。
+                  链接核对日期：2026-10-27。
+                </p>
+              </div>
+            </section>
+
+            <div class="guide-endnote">
+              <i data-lucide="shield-alert"></i>
+              <p>
+                ASTER 不内置所谓“正常值”或 HRT 目标。请结合检测报告上的参考区间、采样时点与完整病史，由合格临床人员解释。
+              </p>
+            </div>
+          </article>
+        </div>
+      </main>
+
+      <footer class="site-footer">
+        <p>ASTER v1.2 · 换算说明</p>
+        <p>仅供单位换算与记录沟通，不是诊断、处方或治疗建议。</p>
+        <span id="year"></span>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="ASTER 是一款面向 HRT 场景的激素单位换算器，支持雌二醇、睾酮、孕酮、催乳素、DHEA-S、LH、FSH、SHBG 等多种激素和临床常用单位。"
+    />
+    <meta name="theme-color" content="#f5ede8" />
+    <meta name="color-scheme" content="light" />
+    <meta property="og:title" content="ASTER · HRT 激素单位换算器" />
+    <meta
+      property="og:description"
+      content="在一个清晰的工作台里换算 HRT 常见激素单位。离线可用，适用于手机、平板与桌面。"
+    />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="assets/icon-192.png" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="stylesheet" href="assets/styles.css" />
+    <script src="assets/lucide.min.js" defer></script>
+    <script type="module" src="assets/app.js"></script>
+    <title>ASTER · HRT 激素单位换算器</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#converter">跳到换算工作台</a>
+
+    <div class="site-shell">
+      <header class="site-header">
+        <a class="brand" href="./" aria-label="ASTER 首页">
+          <span class="brand-mark" aria-hidden="true">
+            <span>A</span>
+            <i></i>
+          </span>
+          <span class="brand-copy">
+            <strong>ASTER</strong>
+            <small>HRT UNIT WORKBENCH</small>
+          </span>
+        </a>
+
+        <div class="header-actions">
+          <span class="network-state" id="network-state" role="status">
+            <span class="network-dot"></span>
+            <span id="network-label">在线</span>
+          </span>
+          <button class="text-button install-button" id="install-button" type="button" hidden>
+            <i data-lucide="download"></i>
+            <span>安装</span>
+          </button>
+          <button class="icon-button" id="share-button" type="button" aria-label="复制当前换算链接" title="复制当前换算链接">
+            <i data-lucide="share-2"></i>
+          </button>
+        </div>
+      </header>
+
+      <main>
+        <section class="intro" aria-labelledby="page-title">
+          <div class="intro-copy">
+            <p class="eyebrow">HORMONE CONVERSION / CLINICAL UNITS</p>
+            <h1 id="page-title">把不同单位，<br /><em>换算成同一种清晰。</em></h1>
+            <p class="intro-summary">
+              为 HRT 常见化验单准备的本地换算工作台。输入一个数值，即时查看质量单位与摩尔单位。
+            </p>
+          </div>
+
+          <div class="intro-ledger" aria-label="换算器信息">
+            <div>
+              <span>分析物</span>
+              <strong>14</strong>
+            </div>
+            <div>
+              <span>单位路径</span>
+              <strong>88</strong>
+            </div>
+            <div>
+              <span>数据位置</span>
+              <strong>本机</strong>
+            </div>
+            <p>
+              <i data-lucide="shield-check"></i>
+              不上传输入，不保存化验数值。
+            </p>
+          </div>
+        </section>
+
+        <section class="converter-shell" id="converter" aria-labelledby="converter-heading">
+          <div class="input-pane">
+            <div class="pane-heading">
+              <div>
+                <p class="section-kicker">INPUT</p>
+                <h2 id="converter-heading">选择分析物</h2>
+              </div>
+              <span class="conversion-count" id="unit-count">8 个单位</span>
+            </div>
+
+            <div class="quick-picks" id="quick-picks" aria-label="常用分析物">
+              <button type="button" data-analyte="estradiol">E2</button>
+              <button type="button" data-analyte="testosterone">T</button>
+              <button type="button" data-analyte="progesterone">P4</button>
+              <button type="button" data-analyte="prolactin">PRL</button>
+            </div>
+
+            <div class="field-group">
+              <label for="analyte-select">分析物</label>
+              <div class="select-wrap select-wrap-wide">
+                <select id="analyte-select"></select>
+                <i data-lucide="chevrons-up-down"></i>
+              </div>
+            </div>
+
+            <div class="input-composer">
+              <div class="field-group value-field">
+                <label for="value-input">数值</label>
+                <input
+                  id="value-input"
+                  type="number"
+                  inputmode="decimal"
+                  step="any"
+                  min="0"
+                  value="100"
+                  autocomplete="off"
+                  aria-describedby="input-hint"
+                />
+              </div>
+              <div class="field-group unit-field">
+                <label for="from-unit">原始单位</label>
+                <div class="select-wrap">
+                  <select id="from-unit"></select>
+                  <i data-lucide="chevrons-up-down"></i>
+                </div>
+              </div>
+            </div>
+
+            <p class="field-hint" id="input-hint">
+              支持小数与科学计数法，不会自动把药物剂量换算成血药浓度。
+            </p>
+
+            <div class="assay-factor" id="assay-factor" hidden>
+              <div class="assay-heading">
+                <span>实验室换算系数</span>
+                <button class="inline-help" id="assay-help" type="button" aria-label="查看催乳素换算说明">
+                  <i data-lucide="info"></i>
+                </button>
+              </div>
+              <div class="factor-row">
+                <input
+                  id="assay-factor-input"
+                  type="number"
+                  inputmode="decimal"
+                  min="1"
+                  max="100"
+                  step="0.1"
+                  value="21.2"
+                  aria-label="每 ng/mL 对应的 mIU/L 系数"
+                />
+                <span>mIU/L = 1 ng/mL</span>
+              </div>
+              <p>默认 21.2，仅为近似值。不同免疫测定标准可能不同。</p>
+            </div>
+
+            <div class="input-actions">
+              <button class="secondary-button" id="swap-button" type="button">
+                <i data-lucide="arrow-left-right"></i>
+                <span>反向换算</span>
+              </button>
+              <button class="quiet-button" id="reset-button" type="button">
+                <i data-lucide="rotate-ccw"></i>
+                <span>重置</span>
+              </button>
+            </div>
+
+            <div class="precision-row">
+              <label for="precision-select">显示精度</label>
+              <select id="precision-select">
+                <option value="3">3 位</option>
+                <option value="4">4 位</option>
+                <option value="5" selected>5 位</option>
+                <option value="6">6 位</option>
+                <option value="7">7 位</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="output-pane">
+            <div class="pane-heading output-heading">
+              <div>
+                <p class="section-kicker">OUTPUT</p>
+                <h2>换算结果</h2>
+              </div>
+              <span class="live-badge"><i data-lucide="activity"></i> LIVE</span>
+            </div>
+
+            <div class="analyte-profile" id="analyte-profile">
+              <span class="analyte-orb" id="analyte-short">E2</span>
+              <div>
+                <h3 id="analyte-name">雌二醇</h3>
+                <p id="analyte-meta">Estradiol · C18H24O2 · 272.38 g/mol</p>
+              </div>
+              <span class="family-pill" id="analyte-family">雌激素</span>
+            </div>
+
+            <div class="primary-result">
+              <div class="result-label">
+                <span>主要换算</span>
+                <span id="primary-equation">pg/mL → pmol/L</span>
+              </div>
+              <div class="result-value-line">
+                <output id="primary-value" aria-live="polite">367.11</output>
+                <span id="primary-unit">pmol/L</span>
+                <button class="copy-button primary-copy" id="primary-copy" type="button" aria-label="复制主要结果" title="复制主要结果">
+                  <i data-lucide="copy"></i>
+                </button>
+              </div>
+            </div>
+
+            <section class="hrt-target" id="hrt-target" aria-labelledby="hrt-target-title" hidden>
+              <div class="hrt-target-heading">
+                <div>
+                  <p class="section-kicker">FEMINIZING HRT</p>
+                  <h3 id="hrt-target-title">女性化 HRT 监测带</h3>
+                </div>
+                <span class="hrt-target-status" id="hrt-target-status">等待数值</span>
+              </div>
+              <div class="hrt-target-range">
+                <div>
+                  <span id="hrt-target-range-label">常见监测范围</span>
+                  <strong id="hrt-target-range-value">—</strong>
+                </div>
+                <div class="hrt-target-track" aria-hidden="true">
+                  <span class="hrt-target-band" id="hrt-target-band"></span>
+                  <span class="hrt-target-marker" id="hrt-target-marker"></span>
+                </div>
+              </div>
+              <p class="hrt-target-summary" id="hrt-target-summary">
+                输入数值后显示是否位于常见 HRT 监测范围。
+              </p>
+              <p class="hrt-target-note" id="hrt-target-note"></p>
+              <p class="hrt-target-caveat" id="hrt-target-caveat"></p>
+              <div class="hrt-target-sources" id="hrt-target-sources" aria-label="监测带资料来源"></div>
+            </section>
+
+            <section class="female-reference" id="female-reference" aria-labelledby="female-reference-title">
+              <div class="female-reference-heading">
+                <div>
+                  <p class="section-kicker">FEMALE CONTEXT</p>
+                  <h3 id="female-reference-title">女性水平对照</h3>
+                </div>
+                <a href="guide.html#female-ranges">参考带说明</a>
+              </div>
+              <p class="female-summary" id="female-summary" role="status" aria-live="polite">
+                正在计算女性参考带位置。
+              </p>
+              <div class="female-range-list" id="female-range-list"></div>
+              <p class="female-context-note" id="female-context-note">
+                区间会随周期、年龄、检测平台与 HRT 方案变化，仅用于数值定位。
+              </p>
+            </section>
+
+            <div class="result-toolbar">
+              <span>其他单位</span>
+              <div>
+                <button class="text-button" id="copy-all-button" type="button">
+                  <i data-lucide="clipboard-copy"></i>
+                  <span>复制全部</span>
+                </button>
+                <button class="text-button" id="show-more-button" type="button" aria-expanded="false">
+                  <span>更多单位</span>
+                  <i data-lucide="chevron-down"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="result-list" id="result-list" aria-live="polite"></div>
+
+            <div class="formula-line" id="formula-line">
+              <i data-lucide="sigma"></i>
+              <span>以同一种激素的摩尔质量做纯单位换算</span>
+            </div>
+
+            <div class="clinical-note" id="clinical-note">
+              <i data-lucide="microscope"></i>
+              <p></p>
+            </div>
+          </div>
+        </section>
+
+        <section class="method-strip" aria-labelledby="method-title">
+          <div class="method-title">
+            <p class="section-kicker">READ THE NUMBER</p>
+            <h2 id="method-title">换算正确，不代表临床解释相同。</h2>
+          </div>
+          <div class="method-item">
+            <span>01</span>
+            <h3>单位不是目标</h3>
+            <p>参考区间随年龄、生理状态、给药途径、采样时点与实验室方法变化。</p>
+          </div>
+          <div class="method-item">
+            <span>02</span>
+            <h3>分子必须匹配</h3>
+            <p>E2、E1、E3、EE2、睾酮与 DHT 是不同分子，不能共享一个换算系数。</p>
+          </div>
+          <div class="method-item">
+            <span>03</span>
+            <h3>剂量不能代入</h3>
+            <p>药品 mg、贴片 mcg/day 与血清浓度不是同一种量纲，不存在通用剂型换算。</p>
+          </div>
+        </section>
+
+        <section class="source-panel" aria-labelledby="source-title">
+          <div>
+            <p class="section-kicker">TRACEABLE BY DESIGN</p>
+            <h2 id="source-title">公式与边界</h2>
+          </div>
+          <p>
+            类固醇激素按各自摩尔质量换算；LH、FSH、SHBG 不提供不可靠的质量/摩尔互算；催乳素采用可调整的近似免疫测定系数。
+          </p>
+          <a href="guide.html">
+            <span>查看完整换算说明</span>
+            <i data-lucide="arrow-up-right"></i>
+          </a>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <p>ASTER v1.2 · 本地计算 · 可离线使用</p>
+        <p>仅供单位换算与记录沟通，不是诊断、处方或治疗建议。</p>
+        <span id="year"></span>
+      </footer>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <noscript>
+      <div class="noscript">ASTER 需要启用 JavaScript 才能执行实时单位换算。</div>
+    </noscript>
+  </body>
+</html>
