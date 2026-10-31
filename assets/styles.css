@@ -2205,6 +2205,20 @@ button:active {
   }
 }
 
+.worksheet-panel { margin: 28px 0; padding: 28px; border: 1px solid #eadde2; border-radius: 24px; background: #fffafb; }
+.worksheet-panel h2 { margin: 8px 0; }
+.worksheet-panel p { line-height: 1.7; }
+.worksheet-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 20px 0; }
+.worksheet-row { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr 1.3fr auto; gap: 12px; align-items: end; min-width: 0; border: 1px solid #eadde2; border-radius: 16px; padding: 16px; margin: 16px 0; }
+.worksheet-row legend { padding: 0 8px; font-size: 13px; }
+.worksheet-row label { display: grid; gap: 8px; min-width: 0; font-size: 12px; }
+.worksheet-row select, .worksheet-row input { width: 100%; min-width: 0; min-height: 44px; border: 1px solid #d8c8cf; border-radius: 10px; background: white; color: #393039; padding: 8px; font: inherit; }
+.worksheet-result { display: block; min-height: 44px; align-content: center; overflow-wrap: anywhere; font-size: 14px; font-weight: 600; }
+.worksheet-result.is-error { color: #9b3d53; font-weight: 400; }
+.worksheet-actions button:disabled { opacity: .5; cursor: not-allowed; }
+@media (max-width: 1000px) { .worksheet-row { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 480px) { .worksheet-panel { padding: 18px; } .worksheet-row { grid-template-columns: 1fr; } }
+
 @media print {
   body {
     background: white;

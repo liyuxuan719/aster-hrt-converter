@@ -11,6 +11,7 @@ import {
 } from "../src/converter.js";
 import { getFemaleReference, REFERENCE_CONTEXT_NOTE } from "../src/female-ranges.js";
 import { getHrtFeminizationTarget } from "../src/hrt-targets.js";
+import { initWorksheet } from "./worksheet.js";
 
 const STORAGE_KEY = "aster-hrt-converter-settings-v1";
 const DEFAULT_ASSAY_FACTOR = 21.2;
@@ -842,6 +843,12 @@ function init() {
   buildAnalyteOptions();
   elements.valueInput.value = initialValue || "100";
   setupEventListeners();
+  initWorksheet({
+    getCurrent: () => ({ analyteId: state.analyteId, value: elements.valueInput.value,
+      fromUnitId: state.fromUnitId, toUnitId: chooseTargetUnit(getCurrentAnalyte(), state.fromUnitId) }),
+    getOptions: () => ({ precision: state.precision, prolactinFactor: state.prolactinFactor }),
+    notify: showToast,
+  });
   updateNetworkState();
   render();
   elements.year.textContent = new Date().getFullYear();
