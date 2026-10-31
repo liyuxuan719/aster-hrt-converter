@@ -1,0 +1,14 @@
+{
+  "name": "aster-hrt-converter",
+  "version": "2.0.0",
+  "description": "Private local hormone unit converter and batch worksheet.",
+  "type": "module",
+  "private": true,
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "start": "node scripts/serve.mjs",
+    "test": "node --test",
+    "check": "node --check assets/app.js && node --check assets/worksheet.js && node --check sw.js"
+  },
+  "license": "MIT"
+}

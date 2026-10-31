@@ -285,6 +285,21 @@
           </div>
         </section>
 
+        <section class="worksheet-panel" aria-labelledby="worksheet-title">
+          <p class="section-kicker">BATCH WORKSHEET · 2.0</p>
+          <h2 id="worksheet-title">一份报告，多项换算。</h2>
+          <p>每项独立选择分析物与单位，最多 50 项。结果仅用于单位沟通，不作临床判断。</p>
+          <p>内容只在本页内存中，刷新即清空，不存入浏览器或分享链接。导出前请核对催乳素系数。</p>
+          <div class="worksheet-actions">
+            <button class="secondary-button" id="worksheet-add" type="button">新增一项</button>
+            <button class="quiet-button" id="worksheet-current" type="button">加入当前换算</button>
+            <button class="quiet-button" id="worksheet-clear" type="button">清空列表</button>
+            <button class="secondary-button" id="worksheet-export" type="button" disabled>导出 CSV</button>
+          </div>
+          <p id="worksheet-status" role="status" aria-live="polite"></p>
+          <div id="worksheet-rows"></div>
+        </section>
+
         <section class="method-strip" aria-labelledby="method-title">
           <div class="method-title">
             <p class="section-kicker">READ THE NUMBER</p>
@@ -323,7 +338,7 @@
       </main>
 
       <footer class="site-footer">
-        <p>ASTER v1.2 · 本地计算 · 可离线使用</p>
+        <p>ASTER v2.0 · 本地计算 · 可离线使用</p>
         <p>仅供单位换算与记录沟通，不是诊断、处方或治疗建议。</p>
         <span id="year"></span>
       </footer>
